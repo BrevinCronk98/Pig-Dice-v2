@@ -10,14 +10,15 @@ var turnScores  = {
 }
 
 function turnCounter() {
-    turnScores.turnCount++
-    if(turnScores.turnCount % 2 == 0){
-        $("#p1").hide();
-        $("#p2").show();
-    } else {
-        $("#p1").show();
-        $("#p2").hide();
-    }
+  turnScores.turnCount ++ ;
+  if(turnScores.turnCount % 2 == 0){
+      $("#p2roll").show();
+      $("#p1roll").hide();
+  } else {
+      $("#p1roll").show();
+      $("#p2roll").hide();
+  }
+  return turnScores.turnCount;
 }
 
 
@@ -27,69 +28,102 @@ function resetGame() {
     turnScores.turnCount = 1;
     userScores.playerTwo = 0;
     userScores.playerOne = 0;
-   }
+}
    
 
 function diceRoll(){
-    const min = 1;
-    const max = 7;
-    const roll= Math.floor(Math.random()*(max- min)+ min)
-    console.log(roll);
-    
-    $("img").hide();
-    switch (roll){
-        case 1: {$("#diceOne").show()}
-        break;
-        case 2: {$("#diceTwo").show()}
-        break;
-        case 3: {$("#diceThree").show()}
-        break;
-        case 4: {$("#diceFour").show()}
-        break;
-        case 5: {$("#diceFive").show()}
-        break;
-        case 6: {$("#diceSix").show()}
-        break;            
-}
+  const min = 1;
+  const max = 7;
+  const roll= Math.floor(Math.random()*(max - min) + min)
+
+  
+  $("img").hide();
+  switch (roll){
+      case 1: {$("#diceOne").show()}
+      break;
+      case 2: {$("#diceTwo").show()}
+      break;
+      case 3: {$("#diceThree").show()}
+      break;
+      case 4: {$("#diceFour").show()}
+      break;
+      case 5: {$("#diceFive").show()}
+      break;
+      case 6: {$("#diceSix").show()}
+      break;            
+  }
     return roll;
 }
 
 
-    function addRoll() {
-    turnScores.currentRoll = diceRoll();
-    if(turnScores.currentRoll != 1){
-        return turnScores.currentTotal += turnScores.currentRoll
-    } else {
-        turnCounter();
-        return turnScores.currentRoll = 0;
-    }
+function addRoll() {
+  turnScores.currentRoll = diceRoll();
+  if(turnScores.currentRoll != 1){
+      return turnScores.currentTotal += turnScores.currentRoll
+  } else {
+      turnCounter();
+      $("#rollCount").hide();
+      return turnScores.currentTotal = 0;
+  }
 }
 
 function addTurnTotal(){
-    if(turnScores.turnCount % 2 != 0){
-        userScores.playerOne += turnScores.currentTotal;
-        turnScores.currentTotal = 0;
-        if(userScores.playerOne >= 100){
-            $("#winner").text("Player One Wins!!");
-        } else {
-            userScores.playerTwo += turnScores.currentTotal;
-            turnScores.currentTotal = 0;
-            if(userScores.playerTwo >= 100){
-                $("#winner").text("Player Two Wins!!");
-            }
-        }
+  if(turnScores.turnCount % 2 != 0){
+    userScores.playerOne += turnScores.currentTotal;
+    turnScores.currentTotal = 0;
+    if(userScores.playerOne >= 100){
+      $("#winner").text("Player One Wins!!");
     }
+  }
+  else {
+    userScores.playerTwo += turnScores.currentTotal;
+    turnScores.currentTotal = 0;
+    if(userScores.playerTwo >= 100){
+        $("#winner").text("Player Two Wins!!");
+    }
+  }
 }
 
 
 $(document).ready(function(){
-
+    
     $("#new").click(function(event){
         event.preventDefault();
+
         resetGame();
+
         $("#p1score").text("Player One Score:" + userScores.playerOne);
-        $("#p1roll").text("Roll:" + turnScores.currentRoll);
-        $("#p2score").text("Player One Score:" + userScores.playerTwo);
-        $("#p2roll").text("Roll:" + turnScores.currentRoll )
+        $("#p2score").text("Player Two Score:" + userScores.playerTwo);
+        $("#roll").show();
+        $("#hold").show();
+        $("#new").hide()  
+        console.log(turnScores.turnCount)
     })
+
+
+$("#roll").click(function(event){
+    event.preventDefault();
+    addRoll();
+    $("#rollCount").show();
+
+    $("#p1score").text("Player One Score:" + userScores.playerOne);
+    $("#rollCount").text("Roll:" + turnScores.currentRoll)
+    $("#p2score").text("Player Two Score:" + userScores.playerTwo);
+ 
+    console.log(turnScores.turnCount)
+    
+
+})
+
+$("#hold").click(function(event){
+    event.preventDefault();
+
+    addTurnTotal()
+    $("#p1score").text("Player One Score:" + userScores.playerOne);
+    $("#p2score").text("Player Two Score:" + userScores.playerTwo);
+    turnCounter();
+    $("#rollCount").hide();
+    console.log(turnScores.turnCount)
+})
+
 })
