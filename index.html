@@ -9,31 +9,41 @@
 <body>
   <div class="container">
     <h1>Pig Dice</h1>
-    <div class="row">
-      <div class="col-lg-6">
-        <hr>
-        <h2>Play Dice for Your Life!</h2>
-        <form id="form-one">
-          <div class="form-group container">
-            <div class="row">
-              <hr>             
-              <div class="col-md-6" id="p1">
-                <h2>Player 1 Score:</h2><span id="p1-score"></span>
-                <h2>Current Roll:</h2><span id="p1-roll"></span>
-                <br>
-                <button id="p1-dice">Roll</button>
-              </div>
-              <div class="col-md-6" id="p2">
-                <h2>Player 2 Score:</h2><span id="p2-score"></span>
-                <h2>Current Roll:</h2><span id="p2-roll"></span>
-                <br>
-                <button id="p2-dice">Roll</button>
-              </div>
+    <hr>
+    <h2>Play Dice for Your Life!</h2>
+    <form id="form-one">
+      <div class="form-group container">
+        <div class="row">
+          <div id ="diceImg">
+          <img id="diceOne" src="https://www.wpclipart.com/recreation/games/dice/die_face_1.png">
+          <img id="diceTwo" src="https://cdn.pixabay.com/photo/2014/04/03/11/56/dice-312627_960_720.png">
+          <img id="diceThree" src="https://cdn.clipart.email/d3b2c6cc915a2da1be1895b97f2a2e7c_dice-3-clip-art-at-clkercom-vector-clip-art-online-royalty-_600-593.png">
+          <img id="diceFour" src="https://lh3.googleusercontent.com/proxy/b8piV26ZXrGRw3F84nFf2nTXr0pvvVjm6bzYDlgdYvv2W1hcauKv2KgzA0xtqyvOB_DEyzoMmwYO3vPUaTWLej1EldfFfpQ">
+          <img id="diceFive" src="https://www.pngkey.com/png/full/91-917449_dots-clipart-five-five-side-of-dice.png">
+          <img id="diceSix" src="https://cdn.clipart.email/ccac06dc2fd832f745152813cecefb33_4-dice-clipart_297-294.png">
+          <hr>       
+        </div>     
+          <div class="col-md-6" id="p1">
+            <h2>Player 1 Score:</h2><span id="p1-score"></span>
+            <span><h2 id="p1-roll"></h2></span>
+            <br>
+            <div id="p1-buttons">
+              <button id="p1-dice">Roll</button>
+              <button id="p1-hold">Hold</button>
             </div>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
+          <div class="col-md-6" id="p2">
+            <h2>Player 2 Score:</h2><span id="p2-score"></span>
+            <span><h2 id="p2-roll"></h2></span>
+            <br>
+            <div id="p2-buttons">
+              <button id="p2-dice">Roll</button>
+              <button id="p2-hold">Hold</button>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </form>
+  </div>    
 </body>
 </html>
