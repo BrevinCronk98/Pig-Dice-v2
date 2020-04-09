@@ -12,11 +12,11 @@ var turnScores  = {
 function turnSwitch() {
   
   if(turnScores.playerTurn == true){
-      $("#p1roll").show();
-      $("#p2roll").hide();
-  } else {
       $("#p2roll").show();
       $("#p1roll").hide();
+  } else {
+      $("#p1roll").show();
+      $("#p2roll").hide();
   }
 }
 
@@ -24,7 +24,6 @@ function turnSwitch() {
 function resetGame() {
     turnScores.currentTotal = 0;
     turnScores.currentRoll = 0;
-    turnScores.playerTurn = true;
     userScores.playerTwo = 0;
     userScores.playerOne = 0;
 }
@@ -53,6 +52,8 @@ function diceRoll() {
   }
     return roll;
 }
+
+
 function aiDiceRoll() {
   const min = 1;
   const max = 7;
@@ -64,18 +65,22 @@ function addRoll() {
   if(turnScores.currentRoll != 1){
       return turnScores.currentTotal += turnScores.currentRoll
   } else {
-      turnSwitch();
-      $("#rollCount").hide();
+    $("#rollCount").hide();
+      turnSwitch();   
+      turn(); 
       return turnScores.currentTotal = 0;
   }
+
 }
 
 function addTurnTotal(){
+  console.log("addTurnTotal" + turnScores.playerTurn);
   if(turnScores.playerTurn == true){
     userScores.playerOne += turnScores.currentTotal;
     turnScores.currentTotal = 0;
     if(userScores.playerOne>= 100){
       $("#winner").text("Player One Wins!!");
+      userScores.playerOne = 100;
     }
   }
   else {
@@ -83,28 +88,25 @@ function addTurnTotal(){
     turnScores.currentTotal = 0;
     if(userScores.playerTwo >= 100){
         $("#winner").text("Player Two Wins!!");
+        userScores.playerTwo = 100;
     }
   }
   turnSwitch();
   turn();
+
 }
 
-// function easyAi(){
-//   const aiMove = Math.floor(Math.random() * 6) + 1;
-//     return aiMove;
-//   }
 
-function aiTurn(){
-  roll = diceRoll();
-  if (roll !== 1){
-    addRoll();
+function aiTurn(){  
+  addRoll();
+  if (turnScores.playerTurn === false){
     addTurnTotal();
-  } else turnSwitch();
+  } else turn();
 }
 
 function turn(){
   turnScores.playerTurn = !turnScores.playerTurn;  
-  console.log(turnScores.playerTurn);
+  // console.log(turnScores.playerTurn);
   
   return turnScores.playerTurn
   }
@@ -121,12 +123,10 @@ $(document).ready(function(){
       $("#new").hide();  
       $("#hard-btn").hide();
       $("#pig").show();
-     
-      console.log(turnScores.playerTurn)
   })
 
   $("#roll").click(function(event){
-      event.preventDefault();
+      event.preventDefault();     
       addRoll();
       $("#rollCount").show();
       $("#pig").show();
@@ -144,61 +144,35 @@ $(document).ready(function(){
       $("#rollCount").hide();
       $("#pig").show();
       console.log(turnScores.playerTurn)
-    })
+    })    
 
+    $("#hard-btn").click(function(event){
+      event.preventDefault();
+      $("#aiRoll").show();
+      $("#aiHold").show();
+      $("#new").hide();
+      $("#hard-btn").hide();
+      $("#pig").show();
+    })
     
-  $("#hard-btn").click(function(event){
-    event.preventDefault();
-    $("#aiRoll").show();
-    $("#aiHold").show();
-    $("#new").hide();
-    $("#hard-btn").hide();
-    $("#pig").show();
-    while(userScores.playerOne < 100 && userScores.playerTwo < 100){
+    $("#aiRoll").click(function(event){
+      event.preventDefault();
+      addRoll();
+      if(turnScores.playerTurn === false){aiTurn()}
+      $("#rollCount").show();
+      $("#pig").show();
+      $("#p1score").text("Player One Score:" + userScores.playerOne);
+      $("#rollCount").text("Roll:" + turnScores.currentRoll)
+      $("#p2score").text("Player Two Score:" + userScores.playerTwo);
+    })
+    
+    $("#aiHold").click(function(event){
+
+      event.preventDefault();      
+      addTurnTotal();
+      aiTurn();
+      $("#pig").show();
       $("#p1score").text("Player One Score:" + userScores.playerOne);
       $("#p2score").text("Player Two Score:" + userScores.playerTwo);
-      if(turnScores.playerTurn === false){
-        aiTurn();
-      } else{
-        $("#aiRoll").click(addRoll());
-        $("#aiHold").click(addTurnTotal());
-        // console.log("hello");
-      }
-    } 
-  })
-
-
-
-    
-    // $("#hard-btn").click(function(event){
-    //   event.preventDefault();
-    //   $("#aiRoll").show();
-    //   $("#aiHold").show();
-    //   $("#new").hide();
-    //   $("#hard-btn").hide();
-    //   $("#pig").show();
-    // })
-    
-    // $("#aiRoll").click(function(event){
-    //   event.preventDefault();
-    //   addRoll();
-    //   $("#rollCount").show();
-    //   $("#pig").show();
-    //   $("#p1score").text("Player One Score:" + userScores.playerOne);
-    //   $("#rollCount").text("Roll:" + turnScores.currentRoll)
-    //   $("#p2score").text("Player Two Score:" + userScores.playerTwo);
-    // })
-    
-    // $("#aiHold").click(function(event){
-    //   event.preventDefault();
-    //   // aiTurn();
-    //   turnCounter();
-    //   addTurnTotal();
-    //   aiRoll();
-    //   $("#pig").show();
-    //   $("#p1score").text("Player One Score:" + userScores.playerOne);
-    //   $("#p2score").text("Player Two Score:" + userScores.playerTwo);
-    //   console.log(turnScores.currentRoll);
-    //   console.log(turnScores.currentTotal);
-    // })
+    })
 })
