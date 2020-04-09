@@ -1,7 +1,11 @@
 body{
     text-align: center;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: gainsboro;
     
+}
+h1{
+    font-weight: bold;
 }
 
 img {
@@ -30,5 +34,16 @@ img {
       display: none;
   }
 
-  
+  #aiRoll{
+      display: none;
+  }
 
+  #aiHold{
+      display: none;
+  }
+
+/* 
+  #player1{
+      background-color: darkgrey;
+      color: red;
+  } */

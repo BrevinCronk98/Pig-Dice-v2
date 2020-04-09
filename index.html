@@ -9,18 +9,20 @@
 <body>
   <div class="container">
     <h1>Pig Dice</h1>
+    <img src="https://cdn.pixabay.com/photo/2013/07/13/10/33/animal-157486_960_720.png" id="pig">
     <hr>
     <h2>Play Dice for Your Life!</h2>
     <h2 id="winner"></h2>
+    
     <form id="form-one">
       <div class="form-group container">
         <div class="row">
           <div id ="img">
-          <img id="diceOne" src="https://www.wpclipart.com/recreation/games/dice/die_face_1.png">
+          <img id="diceOne" src="https://cdn.clipart.email/328ab8f2f6bba5bf1d6dc102e52c67c0_dice-1-clip-art-at-clkercom-vector-clip-art-online-royalty-_297-294.png">
           <img id="diceTwo" src="https://cdn.pixabay.com/photo/2014/04/03/11/56/dice-312627_960_720.png">
           <img id="diceThree" src="https://cdn.clipart.email/d3b2c6cc915a2da1be1895b97f2a2e7c_dice-3-clip-art-at-clkercom-vector-clip-art-online-royalty-_600-593.png">
-          <img id="diceFour" src="https://lh3.googleusercontent.com/proxy/b8piV26ZXrGRw3F84nFf2nTXr0pvvVjm6bzYDlgdYvv2W1hcauKv2KgzA0xtqyvOB_DEyzoMmwYO3vPUaTWLej1EldfFfpQ">
-          <img id="diceFive" src="https://www.pngkey.com/png/full/91-917449_dots-clipart-five-five-side-of-dice.png">
+          <img id="diceFour" src="https://lh3.googleusercontent.com/proxy/lvXzPlJWVq7CmBrNRBoWQmIyAcM4NsAztuFiubJfPp8WfohOLKvPUs56iGLylMblb1UXSA89Jr97Vex6spM4T_sEoep1uiA">
+          <img id="diceFive" src="https://cdn.pixabay.com/photo/2014/04/03/10/24/five-310334_960_720.png">
           <img id="diceSix" src="https://cdn.pixabay.com/photo/2014/04/03/10/24/dice-310333__340.png">
           <hr>       
         </div>  
@@ -28,7 +30,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <h2>Player 1</h2>
-                    <p>Score: <span id="p1score"></span></p>    
+                    <p>Score: <span id="p1score"></span></p>
                     <div id="p1roll">Your Roll </div>
                 </div>
                 <div class="col-md-2">
@@ -39,15 +41,14 @@
                     <p>Score: <span id="p2score"></span></p>
                     <div id="p2roll">Your Roll</div>
                 </div>
-            </div>
-
-           
-       
-       
-        <div id="buttons">
-            <button id="roll">Roll The Dice</button>
-            <button id="hold">Hold</button>
-            <button id="new">Start a New Game</button>
+            </div>                        
+        <div id="buttons" class="btn-group btn-group-lg">
+            <button id="roll" class="btn btn-success">Roll The Dice</button>
+            <button id="hold" class="btn btn-danger">Hold</button>
+            <button id="new" class="btn btn-primary" >Start a New Game</button>
+            <button id="hard-btn" class="btn btn-warning" >Play against AI</button>
+            <button id="aiRoll" class="btn btn-success">Roll</button>
+            <button id="aiHold" class="btn btn-danger">Hold</button>
         </div>
           </div>
         </div>
