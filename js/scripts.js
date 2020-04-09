@@ -9,16 +9,15 @@ var turnScores  = {
     playerTurn: true,
 }
 
-function turnCounter() {
+function turnSwitch() {
+  
   if(turnScores.playerTurn == true){
       $("#p1roll").show();
       $("#p2roll").hide();
   } else {
-      turnScores.playerTurn = false;
       $("#p2roll").show();
       $("#p1roll").hide();
   }
-
 }
 
 
@@ -65,7 +64,7 @@ function addRoll() {
   if(turnScores.currentRoll != 1){
       return turnScores.currentTotal += turnScores.currentRoll
   } else {
-      turnCounter();
+      turnSwitch();
       $("#rollCount").hide();
       return turnScores.currentTotal = 0;
   }
@@ -75,7 +74,7 @@ function addTurnTotal(){
   if(turnScores.playerTurn == true){
     userScores.playerOne += turnScores.currentTotal;
     turnScores.currentTotal = 0;
-    if(userScores.playerOne >= 100){
+    if(userScores.playerOne>= 100){
       $("#winner").text("Player One Wins!!");
     }
   }
@@ -86,7 +85,8 @@ function addTurnTotal(){
         $("#winner").text("Player Two Wins!!");
     }
   }
-  turnCounter();
+  turnSwitch();
+  turn();
 }
 
 // function easyAi(){
@@ -99,8 +99,16 @@ function aiTurn(){
   if (roll !== 1){
     addRoll();
     addTurnTotal();
-  } else turnCounter();
+  } else turnSwitch();
 }
+
+function turn(){
+  turnScores.playerTurn = !turnScores.playerTurn;  
+  console.log(turnScores.playerTurn);
+  
+  return turnScores.playerTurn
+  }
+
   
 $(document).ready(function(){    
   $("#new").click(function(event){
@@ -114,7 +122,7 @@ $(document).ready(function(){
       $("#hard-btn").hide();
       $("#pig").show();
      
-      console.log(turnScores.turnCount)
+      console.log(turnScores.playerTurn)
   })
 
   $("#roll").click(function(event){
@@ -125,7 +133,7 @@ $(document).ready(function(){
       $("#p1score").text("Player One Score:" + userScores.playerOne);
       $("#rollCount").text("Roll:" + turnScores.currentRoll)
       $("#p2score").text("Player Two Score:" + userScores.playerTwo); 
-      console.log(turnScores.turnCount)    
+      console.log(turnScores.playerTurn)
   })
 
   $("#hold").click(function(event){
@@ -135,7 +143,7 @@ $(document).ready(function(){
       $("#p2score").text("Player Two Score:" + userScores.playerTwo);
       $("#rollCount").hide();
       $("#pig").show();
-      console.log(turnScores.turnCount)
+      console.log(turnScores.playerTurn)
     })
 
     
@@ -149,14 +157,14 @@ $(document).ready(function(){
     while(userScores.playerOne < 100 && userScores.playerTwo < 100){
       $("#p1score").text("Player One Score:" + userScores.playerOne);
       $("#p2score").text("Player Two Score:" + userScores.playerTwo);
-      if(playerTurn === false){
+      if(turnScores.playerTurn === false){
         aiTurn();
       } else{
         $("#aiRoll").click(addRoll());
         $("#aiHold").click(addTurnTotal());
         // console.log("hello");
       }
-  }
+    } 
   })
 
 
